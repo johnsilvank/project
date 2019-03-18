@@ -1,0 +1,99 @@
+@media only screen and (max-width: 1199px) {
+    
+}
+
+@media only screen and (max-width: 991px) {
+	.left-sidebar{
+		left: -250px;
+	}   
+	.main-article,
+	header{
+		padding-left: 0
+	}
+	header .h-left{
+		padding-left: 50px;
+	}
+	.mobile-menu-icon{
+		display: block;
+	}
+	.left-sidebar{
+		-webkit-transition: all 0.5s ease;
+		-moz-transition: all 0.5s ease;
+		-o-transition: all 0.5s ease;
+		transition: all 0.5s ease; 
+	}
+	.left-sidebar.active{
+		left: 0;
+	}
+	.mobile-menu-icon.active span{
+		background-color: #fff;
+	}
+	
+	
+}
+@media only screen and (max-width: 767px) {
+	.tbl-div table{
+		width: 800px;
+	}
+	header .h-mid{
+		text-align: right;
+	}
+	.welcone-div{
+		margin-top: -12px;
+	}
+	.vehicle-info-div{
+		margin-bottom: 20px;
+	}
+	
+}
+@media only screen and (max-width: 640px) {
+    
+}
+@media only screen and (max-width: 480px) {
+	.remote-tab-div .nav-tabs>li>a{
+		padding: 10px 7px;
+		font-size: 12px !important;
+	}
+	.content-padding {
+    padding: 16px 0;
+}
+	body {
+		padding-top: 65px;
+	}
+	.devices-comp-div .inner-div{
+		padding: 5px;
+	}
+	.devices-comp-div .table-div{
+		padding: 10px;
+	}
+	.devices-comp-div .table-div table td{
+		padding:0 5px;
+	}
+	.logo {
+    height: 66px; 
+    padding: 15px 15px; 
+}
+    header .h-left {
+    padding-left: 44px;
+		font-size: 13px;
+}
+	header .h-left .btn{
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		    margin-right: 4px;
+	}
+	header .inner-header{
+		padding: 15px 0;
+		    height: 65px;
+	}
+	.mobile-menu-icon{
+		    top: 18px;
+	}
+	.welcone-div {
+    margin-top: -5px;
+}
+}
+@media only screen and (max-width: 460px) {
+    
+}

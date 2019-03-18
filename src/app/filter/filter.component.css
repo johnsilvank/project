@@ -1,0 +1,104 @@
+/* .mycontent-left{
+    border-right: 1px dashed rgb(179, 171, 171);
+    min-height:12vw
+} */
+.input-append .btn.dropdown-toggle {
+    float: none;
+}
+
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range, .custom-day:hover {
+  background-color:grey;
+  color: white;
+}
+
+.custom-day.faded {
+  background-color: rgba(214, 220, 224, 0.5);
+}
+
+
+
+.main {
+    margin-left: 250px; /* Same as the width of the sidenav */
+    /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+
+  .leftSelectBox .rightSelectBox{
+    width :100%; 
+    height: 30px; 
+    /* margin-top:0.5px; 
+    margin-right: 10px */
+  }
+ 
+
+  .indexDiv{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+  }
+
+  .rightDropDown{
+    border: none;
+    flex: 1;
+    margin-left: 10px;
+  }
+
+ /* .icon{
+     float :right;
+ }
+   */
+
+   
+  .input-icon-wrap {
+  display: flex;
+  flex-direction: row;
+  }
+  
+  .input-icon {
+    border: none;
+    flex: 1;
+    background: #ddd;
+    font-size:37px;
+  }
+ 
+  #dateRangePicker{
+    width: 100%;
+   height: 37px;
+  }
+  /* .input-with-icon {
+   width: 95%;
+   height: 37px;
+  }  */
+
+  .allFormGroup{
+    width: 100%;
+  }
+
+  
+  /* .formArrayClass{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+  }*/
+
+   .crossIcon{
+    border: none;
+    
+    /* background: #ddd; */
+    font-size:37px;
+  } 
+
+ 

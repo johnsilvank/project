@@ -1,0 +1,165 @@
+<section class="main">
+  <div class="container-fluid">
+    <div class="jumbotron ">
+      <div class="row">
+        <div class="col-xm-4 col-md-3">
+          <!-- Save Query Box Open -->
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+            Saved Queries
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li *ngFor="let q of queryFeatch; let i = index" role="presentation" (click)="updateQuery($event ,q,i)"
+              style="cursor: pointer">{{q.queryName}}
+            </li>
+          </ul>
+          <!-- Save Query Box Close -->
+        </div>
+        <div class="col-xm-4 col-md-7 mycontent-left">
+
+          <h4 style="margin-bottom: 20px" *ngIf="trueValue; else newFalseValue"><b>{{savedQueryName}}</b></h4>
+          <ng-template #newFalseValue>
+            <h4 style="margin-bottom: 20px"><b>Please Enter New Query</b></h4>
+          </ng-template>
+
+          <!-----------Fiter Option Select Box open------------>
+
+
+          <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+            <div class="form-group">
+              <div formArrayName="items" *ngFor="let item of addItem.controls; let i = index;">
+                <div class="indexDiv" id="existingField" [formGroupName]="i">
+
+                  <!-----------Property Fields Open------------>
+                  <div class="leftDropDown">
+                    <select class="form-control leftSelectBox" formControlName="property" name="property"
+                      (change)="getQuery($event,i)">
+                      <option value="" selected>Select Properties</option>
+                      <option class="form-control" *ngFor="let typeData of listDataResponse;" value={{typeData}}>
+                        {{typeData}}</option>
+                    </select>
+                  </div>
+
+                  <!-----------Property Fields close------------>
+
+
+                  <!-----------Property Value open ------------>
+
+                  <div class=rightDropDown>
+                    <!-- <input class="form-control" formControlName = "property_TypeValue"> -->
+                    <select class="form-control rightSelectBox" id="rightBoxId"
+                      *ngIf="this.addItem['value'][i]['property'] !== 'dt'; else datePick"
+                      formControlName="property_TypeValue"  name="property_TypeValue" (change)="selectValue($event,i)">
+                      <option value="" selected>Select Property Value</option>
+                      <option class="form-control" *ngFor="let list of getFieldData['getFieldData' + i]" value={{list}}>
+                        {{ list }}
+                      </option>
+                    </select>
+                  </div>
+                  <ng-template #datePick>
+                  <div class="input-icon-wrap">
+                    <date-range-picker id="dateRangePicker" [class]="'form-control'" type="text"  
+                    [options]="daterangepickerOptions" 
+                    (rangeSelected)="rangeSelected($event)">
+                   </date-range-picker>
+                   <i class="fa fa-calendar fa-6 input-icon" aria-hidden="true"></i>
+                  </div>
+                   
+
+                  </ng-template>
+
+                  <!-----------Property Value close------------>
+                  <i class="fa fa-times crossIcon" aria-hidden="true" (click)="removeInputField(i)" style="cursor: pointer"></i>
+
+                </div>
+                <br>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary" type="button" (click)="addItemArray()" style="margin-left:0.9px;"> Add
+              Field </button>
+            <button class="btn btn-secondary" type="submit" style="margin-left:10px;" [hidden]="!buttonHideShow"> Submit
+            </button>
+                   <!-- POP Up For save Query - open -->
+
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Please Enter Query Name</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input  id="saveId"  class="form-control" type="text" 
+                         placeholder="Please Enter Name of Query" value={{savedQueryName}} >
+                       
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" type=submit (click)="saveQuery()" style="margin-top: 4px" (click)="modal.dismiss('Cross click')" aria-label="Close">Save</button>
+                </div>
+              </ng-template>
+              
+              <button class="btn btn-secondary" type="button" id="dropdownMenuButton" [hidden]="!buttonHideShow" (click)="open(content)" style="margin-left:10px" >
+                Save  Query</button>
+
+               <!-- POP Up For save Query - close -->
+
+            <button class="btn btn-secondary" type="button" (click)="resetForm()" style="margin-left:10px;"
+              [hidden]="!buttonHideShow">
+              Reset Query
+            </button>
+            <button class="btn btn-secondary" [hidden]="deletedisabled" style="margin-left:10px;" type="button"
+              id="dropdownMenuButton" (click)="deleteQuery($event)">
+              Delete
+            </button>
+          </form>
+
+          <!-----------Fiter Option Select Box Close------------>
+        </div> <br>
+      </div>
+    </div>
+  </div>
+  <div>
+
+    <div *ngIf="show" style="text-align :center; color:red ">
+      <h4>No Result Found</h4>
+    </div>
+
+    <h1> FILTERED RESULT </h1> <b style="float:right; margin-right: 10px"> Date-Range In UTC -  From:{{formatedFromDate}} - To:{{formatedToDate}}</b>
+
+    <table id="newExample" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th>Building Name</th>
+          <th>Floor Name</th>
+          <th>Site Name</th>
+          <th>Zone Name</th>
+          <th>Site Power</th>
+          <th>Building Power</th>
+
+          <th>Zone Total Power</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of postResponse">
+          <td>{{p.building_name}}</td>
+          <td>{{p.floor_name}}</td>
+          <td>{{p.site_name}}</td>
+          <td>{{p.zone_name}}</td>
+          <td>{{p.sitePower}}</td>
+          <th>{{p.buildingPower}}</th>
+          <td>{{p.zonetotalPower}}</td>
+          <td>{{changeDateFormatForList(p.dt)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+ 
